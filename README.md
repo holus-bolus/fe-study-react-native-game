@@ -1,50 +1,251 @@
-# Welcome to your Expo app 👋
+# React Native Minigame
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
 
-## Get started
+This project is a React Native minigame app using Expo. It features a gradient background, an image background, and a game start screen with input and buttons.
 
-1. Install dependencies
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Components](#components)
+- [Screens](#screens)
+- [License](#license)
+
+## Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/yourusername/react-native-minigame.git
+   cd react-native-minigame
+   ```
+
+2. **Install dependencies:**
+
+   Make sure you have Node.js installed (version 17 or higher).
 
    ```bash
    npm install
    ```
 
-2. Start the app
+3. **Install Expo CLI:**
+
+   If you haven't already installed Expo CLI, install it globally:
 
    ```bash
-    npx expo start
+   npm install -g expo-cli
    ```
 
-In the output, you'll find options to open the app in a
+4. **Start the project:**
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   ```bash
+   npx expo start
+   ```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+   This will start the Expo development server and provide you with a QR code to run the app on your device using the Expo Go app.
 
-## Get a fresh project
+## Usage
 
-When you're ready, run:
+- Scan the QR code provided by `expo start` using the Expo Go app on your Android or iOS device.
+- You can also run the app on an Android or iOS emulator.
 
-```bash
-npm run reset-project
+## Project Structure
+
+```plaintext
+react-native-minigame/
+├── app/
+│   ├── tabs/
+│   │   ├── _layout.tsx
+│   │   ├── explore.tsx
+│   │   └── index.tsx
+│   ├── screens/
+│   │   ├── StartGameScreen.tsx
+│   ├── components/
+│   │   └── PrimaryButton.tsx
+│   ├── assets/
+│   │   ├── fonts/
+│   │   ├── images/
+│   │   │   ├── bg-image.png
+│   │   │   ├── adaptive-icon.png
+│   │   │   ├── favicon.png
+│   │   │   ├── icon.png
+│   │   │   ├── partial-react-logo.png
+│   │   │   ├── react-logo@2x.png
+│   │   │   ├── react-logo@3x.png
+│   │   │   └── splash.png
+│   ├── constants/
+│   ├── hooks/
+│   ├── node_modules/
+│   ├── scripts/
+│   ├── .expo/
+│   ├── .gitignore
+│   ├── app.json
+│   ├── babel.config.js
+│   ├── expo-env.d.ts
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── README.md
+│   └── tsconfig.json
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Components
 
-## Learn more
+### HomeScreen
 
-To learn more about developing your project with Expo, look at the following resources:
+The `HomeScreen` component is the main screen of the app, featuring a linear gradient and an image background with a semi-transparent effect. It includes the `StartGameScreen` component.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```tsx
+import { StyleSheet, ImageBackground } from "react-native"
+import { LinearGradient } from "expo-linear-gradient"
+import StartGameScreen from "@/app/screens/StartGameScreen"
 
-## Join the community
+export default function HomeScreen() {
+ 
 
-Join our community of developers creating universal apps.
+```tsx
+  return (
+    <LinearGradient colors={["#4e0329", "#ddb52f"]} style={styles.rootScreen}>
+      <ImageBackground
+        source={require("../../assets/images/bg-image.png")}
+        resizeMode="cover"
+        style={styles.rootScreen}
+        imageStyle={{ opacity: 0.5 }}
+      >
+        <StartGameScreen />
+      </ImageBackground>
+    </LinearGradient>
+  )
+}
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+const styles = StyleSheet.create({
+  rootScreen: {
+    flex: 1,
+  },
+})
+```
+
+### StartGameScreen
+
+The `StartGameScreen` component includes a number input field and two buttons: "Confirm" and "Reset". These buttons are custom components called `PrimaryButton`.
+
+```tsx
+import { View, TextInput, StyleSheet } from "react-native"
+import PrimaryButton from "@/app/components/PrimaryButton"
+
+const StartGameScreen = () => {
+  return (
+    <View style={styles.inputContainer}>
+      <TextInput
+        style={styles.numberInput}
+        maxLength={2}
+        keyboardType="numeric"
+      />
+      <View style={styles.buttonsContainer}>
+        <View style={styles.buttonContainer}>
+          <PrimaryButton>Confirm</PrimaryButton>
+        </View>
+        <View style={styles.buttonContainer}>
+          <PrimaryButton>Reset</PrimaryButton>
+        </View>
+      </View>
+    </View>
+  )
+}
+
+export default StartGameScreen
+
+const styles = StyleSheet.create({
+  inputContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    marginTop: 100,
+    marginHorizontal: 24,
+    backgroundColor: "#7e0f6d",
+    borderRadius: 10,
+    elevation: 4,
+  },
+  numberInput: {
+    height: 50,
+    width: 50,
+    fontSize: 32,
+    borderBottomColor: "#ddb52f",
+    borderBottomWidth: 2,
+    color: "#ddb52f",
+    marginVertical: 8,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  buttonContainer: {
+    flex: 1,
+  },
+})
+```
+
+### PrimaryButton
+
+The `PrimaryButton` component is a custom button with a press handler that logs a message to the console.
+
+```tsx
+import { View, Text, Pressable, StyleSheet } from "react-native"
+import { ReactNode } from "react"
+
+const PrimaryButton = ({ children }: { children: ReactNode }) => {
+  const pressHandler = () => {
+    console.log("PrimaryButton pressed")
+  }
+  return (
+    <View style={styles.buttonOuterContainer}>
+      <Pressable
+        onPress={pressHandler}
+        style={({ pressed }) =>
+          pressed
+            ? [styles.pressed, styles.buttonInnerContainer]
+            : styles.buttonInnerContainer
+        }
+      >
+        <Text style={styles.buttonText}>{children}</Text>
+      </Pressable>
+    </View>
+  )
+}
+
+export default PrimaryButton
+
+const styles = StyleSheet.create({
+  buttonOuterContainer: {
+    borderRadius: 28,
+    margin: 4,
+    overflow: "hidden",
+  },
+  buttonInnerContainer: {
+    backgroundColor: "#ddb52f",
+    alignItems: "center",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    elevation: 2,
+  },
+  buttonText: {
+    color: "#ffffff",
+    textAlign: "center",
+  },
+  pressed: {
+    opacity: 0.75,
+  },
+})
+```
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+Feel free to customize this README file further to suit your project's specific details and requirements. If you have any more questions or need additional information, let me know!
