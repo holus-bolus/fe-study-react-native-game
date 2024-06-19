@@ -1,8 +1,18 @@
 import { StyleSheet, ImageBackground } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import StartGameScreen from "@/app/screens/StartGameScreen";
+import { useState } from "react";
+import GameScreen from "@/app/screens/GameScreen";
 
 export default function HomeScreen() {
+  const [userNumber, setUserNumber] = useState<number | null>(null);
+  const startGameHandler = (selectedNumber: number) => {
+    setUserNumber(selectedNumber);
+  };
+  let screen = <StartGameScreen onPickNumber={startGameHandler} />;
+  if (userNumber) {
+    screen = <GameScreen />;
+  }
   return (
     <LinearGradient colors={["#4e0329", "#ddb52f"]} style={styles.rootScreen}>
       <ImageBackground
@@ -11,7 +21,7 @@ export default function HomeScreen() {
         style={styles.rootScreen}
         imageStyle={{ opacity: 0.5 }}
       >
-        <StartGameScreen />
+        {screen}
       </ImageBackground>
     </LinearGradient>
   );

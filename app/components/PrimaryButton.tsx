@@ -1,9 +1,15 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { ReactNode } from "react";
 
-const PrimaryButton = ({ children }: { children: ReactNode }) => {
+const PrimaryButton = ({
+  children,
+  onPress,
+}: {
+  children: ReactNode;
+  onPress: () => void;
+}) => {
   const pressHandler = () => {
-    console.log("PrimaryButton pressed");
+    onPress();
   };
   return (
     <View style={styles.buttonOuterContainer}>
