@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import NumberContainer from "@/app/components/game/NumberContainer";
 import PrimaryButton from "@/app/components/UI/PrimaryButton";
 import InstructionText from "@/app/components/UI/InstructionText";
+import Card from "@/app/components/UI/Card";
+import { Ionicons } from "@expo/vector-icons";
 
 interface GameScreenProps {
   userNumber: number;
@@ -66,15 +68,23 @@ const GameScreen = ({ userNumber, onGameOver }: GameScreenProps) => {
     <View style={styles.screen}>
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
-      <View>
-        <InstructionText>Higher or Lower</InstructionText>
-        <PrimaryButton onPress={() => nextGuessHandler("lower")}>
-          Lower
-        </PrimaryButton>
-        <PrimaryButton onPress={() => nextGuessHandler("greater")}>
-          Greater
-        </PrimaryButton>
-      </View>
+      <Card>
+        <InstructionText style={styles.instructionText}>
+          Higher or Lower
+        </InstructionText>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={() => nextGuessHandler("lower")}>
+              <Ionicons name="remove-circle-outline" size={24} color="white" />
+            </PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={() => nextGuessHandler("greater")}>
+              <Ionicons name="add-circle-outline" size={24} color="white" />
+            </PrimaryButton>
+          </View>
+        </View>
+      </Card>
     </View>
   );
 };
@@ -86,5 +96,17 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     alignItems: "center",
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    marginTop: 16,
+  },
+  buttonContainer: {
+    flex: 1,
+  },
+  instructionText: {
+    marginBottom: 12,
   },
 });

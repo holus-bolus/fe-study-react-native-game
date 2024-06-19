@@ -13,9 +13,9 @@ export default Title;
 
 const styles = StyleSheet.create({
   title: {
+    fontFamily: "poppins-bold",
     fontSize: 30,
     marginVertical: 10,
-    fontWeight: "bold",
     color: Colors.title500,
     borderWidth: 2,
     padding: 10,
