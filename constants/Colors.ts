@@ -4,4 +4,5 @@ export const Colors = {
   primary700: "#4e0329",
   primary800: "#7e0f6d",
   accent500: "#ddb52f",
+  title500: "#102ec6",
 };

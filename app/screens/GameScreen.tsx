@@ -3,6 +3,7 @@ import Title from "@/app/components/UI/Title";
 import { useEffect, useState } from "react";
 import NumberContainer from "@/app/components/game/NumberContainer";
 import PrimaryButton from "@/app/components/UI/PrimaryButton";
+import InstructionText from "@/app/components/UI/InstructionText";
 
 interface GameScreenProps {
   userNumber: number;
@@ -66,7 +67,7 @@ const GameScreen = ({ userNumber, onGameOver }: GameScreenProps) => {
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
       <View>
-        <Text>Higher or Lower</Text>
+        <InstructionText>Higher or Lower</InstructionText>
         <PrimaryButton onPress={() => nextGuessHandler("lower")}>
           Lower
         </PrimaryButton>

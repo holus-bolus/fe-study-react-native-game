@@ -16,10 +16,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginVertical: 10,
     fontWeight: "bold",
-    color: Colors.accent500,
+    color: Colors.title500,
     borderWidth: 2,
     padding: 10,
     borderRadius: 10,
-    borderColor: Colors.accent500,
+    borderColor: Colors.title500,
+    backgroundColor: "rgba(240, 240, 240, 0.7)",
   },
 });
