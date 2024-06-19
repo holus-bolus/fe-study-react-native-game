@@ -1,4 +1,5 @@
 import { Text, StyleSheet } from "react-native";
+import { Colors } from "@/constants/Colors";
 
 interface TitleProps {
   children: string;
@@ -15,10 +16,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginVertical: 10,
     fontWeight: "bold",
-    color: "#ddb52f",
+    color: Colors.accent500,
     borderWidth: 2,
     padding: 10,
     borderRadius: 10,
-    borderColor: "#ddb52f",
+    borderColor: Colors.accent500,
   },
 });
