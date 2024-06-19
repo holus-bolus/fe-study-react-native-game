@@ -4,15 +4,21 @@ import StartGameScreen from "@/app/screens/StartGameScreen";
 import { useState } from "react";
 import GameScreen from "@/app/screens/GameScreen";
 import { Colors } from "@/constants/Colors";
+import GameOverScreen from "@/app/screens/GameOverScreen";
 
 export default function HomeScreen() {
   const [userNumber, setUserNumber] = useState<number | null>(null);
+  const [gameIsOver, setGameIsOver] = useState(true);
   const startGameHandler = (selectedNumber: number) => {
     setUserNumber(selectedNumber);
   };
+
   let screen = <StartGameScreen onPickNumber={startGameHandler} />;
   if (userNumber) {
-    screen = <GameScreen />;
+    screen = <GameScreen userNumber={userNumber} />;
+  }
+  if (gameIsOver) {
+    screen = <GameOverScreen />;
   }
   return (
     <LinearGradient
