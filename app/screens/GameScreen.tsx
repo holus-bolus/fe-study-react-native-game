@@ -3,10 +3,10 @@ import Title from "@/app/components/UI/Title";
 import { useEffect, useState } from "react";
 import NumberContainer from "@/app/components/game/NumberContainer";
 import PrimaryButton from "@/app/components/UI/PrimaryButton";
-import GameOverScreen from "@/app/screens/GameOverScreen";
 
 interface GameScreenProps {
   userNumber: number;
+  onGameOver: () => void;
 }
 
 const generateNumberBetween = (
@@ -21,24 +21,21 @@ const generateNumberBetween = (
   return rndNum;
 };
 
-let minBoundary = 1;
-let maxBoundary = 100;
-
-const GameScreen = ({ userNumber }: GameScreenProps) => {
-  const initialGuess = generateNumberBetween(
-    minBoundary,
-    maxBoundary,
-    userNumber,
-  );
+const GameScreen = ({ userNumber, onGameOver }: GameScreenProps) => {
+  const initialGuess = generateNumberBetween(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [minBoundary, setMinBoundary] = useState(1);
+  const [maxBoundary, setMaxBoundary] = useState(100);
 
   useEffect(() => {
     if (currentGuess === userNumber) {
       Alert.alert("Game Over", `Your number is ${currentGuess}`, [
         { text: "Okay", style: "cancel" },
       ]);
+      onGameOver();
     }
-  }, []);
+  }, [currentGuess, userNumber, onGameOver]);
+
   const nextGuessHandler = (direction: "lower" | "greater") => {
     if (
       (direction === "lower" && currentGuess < userNumber) ||
@@ -49,11 +46,13 @@ const GameScreen = ({ userNumber }: GameScreenProps) => {
       ]);
       return;
     }
+
     if (direction === "lower") {
-      maxBoundary = currentGuess;
+      setMaxBoundary(currentGuess);
     } else {
-      minBoundary = currentGuess + 1;
+      setMinBoundary(currentGuess + 1);
     }
+
     const nextNumber = generateNumberBetween(
       minBoundary,
       maxBoundary,

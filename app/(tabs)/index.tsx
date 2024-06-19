@@ -11,13 +11,18 @@ export default function HomeScreen() {
   const [gameIsOver, setGameIsOver] = useState(true);
   const startGameHandler = (selectedNumber: number) => {
     setUserNumber(selectedNumber);
+    setGameIsOver(false);
   };
-
+  const gameOverHandler = () => {
+    setGameIsOver(true);
+  };
   let screen = <StartGameScreen onPickNumber={startGameHandler} />;
   if (userNumber) {
-    screen = <GameScreen userNumber={userNumber} />;
+    screen = (
+      <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
+    );
   }
-  if (gameIsOver) {
+  if (gameIsOver && userNumber) {
     screen = <GameOverScreen />;
   }
   return (
