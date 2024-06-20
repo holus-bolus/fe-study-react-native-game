@@ -14,12 +14,13 @@ export default Title;
 const styles = StyleSheet.create({
   title: {
     fontFamily: "poppins-bold",
-    fontSize: 30,
+    fontSize: 25,
     marginVertical: 10,
     color: Colors.title500,
     borderWidth: 2,
     padding: 10,
     borderRadius: 10,
+    maxWidth: "80%",
     borderColor: Colors.title500,
     backgroundColor: "rgba(240, 240, 240, 0.7)",
   },
