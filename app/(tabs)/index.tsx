@@ -13,12 +13,15 @@ SplashScreen.preventAutoHideAsync();
 export default function HomeScreen() {
   const [userNumber, setUserNumber] = useState<number | null>(null);
   const [gameIsOver, setGameIsOver] = useState(true);
+  const [guessRounds, setGuessRounds] = useState(0);
   const [fontsLoaded] = useFonts({
     "poppins-bold": require("../../assets/fonts/Poppins-Bold.ttf"),
     "poppins-regular": require("../../assets/fonts/Poppins-Regular.ttf"),
     "poppins-light": require("../../assets/fonts/Poppins-Light.ttf"),
     "poppins-medium": require("../../assets/fonts/Poppins-Medium.ttf"),
     "poppins-black": require("../../assets/fonts/Poppins-Black.ttf"),
+    "open-sans": require("../../assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("../../assets/fonts/OpenSans-Bold.ttf"),
   });
 
   useEffect(() => {
@@ -30,7 +33,11 @@ export default function HomeScreen() {
   if (!fontsLoaded) {
     return null;
   }
-
+  const startNewGameHandler = () => {
+    setGuessRounds(0);
+    setUserNumber(null);
+    setGameIsOver(false);
+  };
   const startGameHandler = (selectedNumber: number) => {
     setUserNumber(selectedNumber);
     setGameIsOver(false);
@@ -49,7 +56,13 @@ export default function HomeScreen() {
   }
 
   if (gameIsOver && userNumber) {
-    screen = <GameOverScreen />;
+    screen = (
+      <GameOverScreen
+        userNumber={userNumber}
+        roundsNumber={guessRounds}
+        onStartNewGame={startNewGameHandler}
+      />
+    );
   }
 
   return (
